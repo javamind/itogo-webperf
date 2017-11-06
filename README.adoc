@@ -1,6 +1,6 @@
 = JugLausanne 2017 - Optimiser les performances d'une webapp
 
-image:https://travis-ci.org/Dev-Mind/devoxx2017.svg?branch=master[Travis]
+image:https://travis-ci.org/javamind/juglausanne-webperf.svg?branch=master
 
 image:src/main/images/logo/logo_1500.png[Dev-Mind]
 

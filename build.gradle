@@ -21,7 +21,7 @@ apply plugin: 'com.moowork.node'
 apply plugin: 'com.moowork.gulp'
 
 jar {
-    baseName = 'devoxx2017-perfweb'
+    baseName = 'juglausanne-perfweb'
     version = '0.0.1-SNAPSHOT'
 }
 
@@ -31,7 +31,7 @@ node {
 }
 
 springBoot {
-    mainClass = 'com.devmind.performance.Devoxx2017Application'
+    mainClass = 'com.devmind.performance.JugLausanneApplication'
 }
 
 allprojects {
