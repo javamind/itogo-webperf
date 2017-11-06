@@ -1,0 +1,85 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("com.moowork.gradle:gradle-node-plugin:1.1.1")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.gulp'
+
+jar {
+    baseName = 'devoxx2017-perfweb'
+    version = '0.0.1-SNAPSHOT'
+}
+
+node {
+    version = "8.4.0"
+    download = true
+}
+
+springBoot {
+    mainClass = 'com.devmind.performance.Devoxx2017Application'
+}
+
+allprojects {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile "org.springframework.boot:spring-boot-starter-undertow"
+    compile("com.h2database:h2")
+    compile "org.mortbay.jetty.alpn:alpn-boot:8.1.11.v20170118"
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.assertj:assertj-core:3.6.2")
+}
+
+task gulpBuild(type: GulpTask) {
+    dependsOn("yarn")
+    inputs.dir("src/main/sass")
+    inputs.dir("src/main/es6")
+    inputs.dir("src/main/images")
+    inputs.dir("build/.tmp")
+    outputs.dir("build/resources/main/static")
+    args = ['build']
+}
+
+task gulpClean(type: GulpTask) {
+    dependsOn("yarn")
+    inputs.dir("build/.tmp")
+    outputs.dir("build/resources/main/static")
+    args = ['clean']
+}
+
+
+processResources.dependsOn(gulpBuild)
+clean.dependsOn(gulpClean)
