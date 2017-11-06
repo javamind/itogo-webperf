@@ -34,7 +34,7 @@ const paths = {
 
 // Lint JavaScript
 gulp.task('lint', () =>
-  gulp.src([`${paths.main}/es6/**/*.js`, '!node_modules/**'])
+  gulp.src([`${paths.main}/web/**/*.js`, '!node_modules/**'])
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.eslint.failOnError())
@@ -82,7 +82,7 @@ gulp.task('styles', () => {
     .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
     .pipe(gulp.dest(`${paths.tmp}/styles`))
     .pipe($.if('*.css', $.uncss({
-      html: [`${paths.main}/*.html`, `${paths.main}/es6/**/*.html`, `${paths.main}/es6/**/*.js`]
+      html: [`${paths.main}/*.html`, `${paths.main}/web/**/*.html`, `${paths.main}/web/**/*.js`]
      })))
     .pipe($.if('*.css', $.cssnano()))
     .pipe($.size({title: 'styles'}))
@@ -92,7 +92,7 @@ gulp.task('styles', () => {
 
 // Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
 gulp.task('scripts', () =>
-  gulp.src(`${paths.main}/es6/**/*.js`)
+  gulp.src(`${paths.main}/web/**/*.js`)
     .pipe(webpackStream({
       output: {
         filename: "app.bundle.js"
@@ -148,16 +148,16 @@ const HTML_MINIFIER_CONFIG = {
 
 // Scan your HTML for assets & optimize them
 gulp.task('html-template', () => {
-  return gulp.src(`${paths.main}/es6/**/*.html`)
+  return gulp.src(`${paths.main}/web/**/*.html`)
     .pipe($.htmlmin(HTML_MINIFIER_CONFIG))
     .pipe(gulp.dest(`${paths.tmp}`));
 });
 
 gulp.task('html', () => {
 
-  return gulp.src([`${paths.main}/*.html`, `${paths.main}/es6/**/*.html`])
+  return gulp.src([`${paths.main}/*.html`, `${paths.main}/web/**/*.html`])
     .pipe($.useref({
-      searchPath: `{${paths.tmp},${paths.main}/es6}`,
+      searchPath: `{${paths.tmp},${paths.main}/web}`,
       noAssets: true
     }))
     .pipe($.if('*.html', $.htmlmin(HTML_MINIFIER_CONFIG)))

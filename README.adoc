@@ -1,10 +1,10 @@
-= DevoxxFr 2017 - Optimiser les performances d'une webapp
+= JugLausanne 2017 - Optimiser les performances d'une webapp
 
 image:https://travis-ci.org/Dev-Mind/devoxx2017.svg?branch=master[Travis]
 
 image:src/main/images/logo/logo_1500.png[Dev-Mind]
 
-Ce projet sert de support à la session "Optimiser les performances d'une webapp" présentée à Devoxx France 2017.
+Ce projet sert de support à la session "Optimiser les performances d'une webapp" présentée au Jug de Lausanne en novembre 2017.
 
 __Avec les outils actuels, développer une application web (grand public ou privée), avec du JS en front et du Java en backend est de plus en plus rapide. Les premiers hics peuvent survenir le jour où vous basculez cette application en production.
 __
